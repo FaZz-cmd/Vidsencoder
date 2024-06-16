@@ -11,13 +11,13 @@ const rpc = new RPC.Client({ transport: 'ipc' });
 
 rpc.on('ready', () => {
   rpc.setActivity({
-    state: 'Encodage des vidéos',
+    state: 'Encode Videos',
     startTimestamp: new Date(),
     largeImageKey: 'app_icon', 
     largeImageText: 'Vidsencoder 2.0.0'
   });
 
-  console.log('La présence riche est active');
+  console.log('Rich Presence is active');
 });
 
 rpc.login({ clientId }).catch(console.error);
@@ -75,7 +75,7 @@ app.on('window-all-closed', () => {
 ipcMain.handle('browse-video-file', async () => {
   const result = await dialog.showOpenDialog({
     properties: ['openFile'],
-    filters: [{ name: 'Fichiers vidéo', extensions: ['mp4', 'mkv', 'mov'] }],
+    filters: [{ name: 'Video File', extensions: ['mp4', 'mkv', 'mov'] }],
   });
   return result.filePaths[0];
 });
@@ -103,11 +103,11 @@ ipcMain.handle('encode-video', async (event, { inputPath, outputPath, videoName,
   return new Promise((resolve, reject) => {
     exec(ffmpegCommand, (error, stdout, stderr) => {
       if (error) {
-        event.sender.send('terminal-message', `Erreur : ${error.message}`);
+        event.sender.send('terminal-message', `Error : ${error.message}`);
         reject(error.message);
         return;
       }
-      event.sender.send('terminal-message', `Succès : ${stdout || stderr}`);
+      event.sender.send('terminal-message', `Success : ${stdout || stderr}`);
       createSuccessWindow(); 
       resolve(stdout || stderr);
     });
