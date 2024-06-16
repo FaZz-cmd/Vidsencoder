@@ -4,7 +4,6 @@ const { exec } = require('child_process');
 const ffmpeg = require('ffmpeg-static');
 const RPC = require('discord-rpc');
 
-
 const clientId = '1251914969948229714'; 
 RPC.register(clientId);
 
@@ -12,13 +11,13 @@ const rpc = new RPC.Client({ transport: 'ipc' });
 
 rpc.on('ready', () => {
   rpc.setActivity({
-    state: 'Encode Videos',
+    state: 'Encodage des vidéos',
     startTimestamp: new Date(),
     largeImageKey: 'app_icon', 
     largeImageText: 'Vidsencoder 2.0.0'
   });
 
-  console.log('Rich Presence is active');
+  console.log('La présence riche est active');
 });
 
 rpc.login({ clientId }).catch(console.error);
@@ -76,7 +75,7 @@ app.on('window-all-closed', () => {
 ipcMain.handle('browse-video-file', async () => {
   const result = await dialog.showOpenDialog({
     properties: ['openFile'],
-    filters: [{ name: 'Video Files', extensions: ['mp4', 'mkv', 'mov'] }],
+    filters: [{ name: 'Fichiers vidéo', extensions: ['mp4', 'mkv', 'mov'] }],
   });
   return result.filePaths[0];
 });
@@ -90,7 +89,7 @@ ipcMain.handle('browse-output-folder', async () => {
 
 ipcMain.handle('encode-video', async (event, { inputPath, outputPath, videoName, encoder, format, resolution }) => {
   const outputFile = path.join(outputPath, `${videoName}.${format}`);
-  const resolutionCommand = resolution !== 'Keep' ? `-vf scale=${resolution}` : '';
+  const resolutionCommand = resolution !== 'Keep' ? `-vf "scale=${resolution}:flags=lanczos"` : '';
   const encoderCommand = {
     'x264': '-c:v libx264 -b:v 35M -g 120 -keyint_min 120 -sc_threshold 0 -pix_fmt yuv420p -color_primaries bt709 -color_trc bt709 -colorspace bt709 -profile:v high -bf 2 -b_strategy 2',
     'x265': '-c:v libx265 -b:v 30M -g 120 -keyint_min 120 -sc_threshold 0 -pix_fmt yuv420p10le -color_primaries bt709 -color_trc bt709 -colorspace bt709 -rc:v cbr',
@@ -104,11 +103,11 @@ ipcMain.handle('encode-video', async (event, { inputPath, outputPath, videoName,
   return new Promise((resolve, reject) => {
     exec(ffmpegCommand, (error, stdout, stderr) => {
       if (error) {
-        event.sender.send('terminal-message', `Error: ${error.message}`);
+        event.sender.send('terminal-message', `Erreur : ${error.message}`);
         reject(error.message);
         return;
       }
-      event.sender.send('terminal-message', `Success: ${stdout || stderr}`);
+      event.sender.send('terminal-message', `Succès : ${stdout || stderr}`);
       createSuccessWindow(); 
       resolve(stdout || stderr);
     });
