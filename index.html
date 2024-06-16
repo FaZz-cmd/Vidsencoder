@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vidsencoder 2.0.0</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
+  <script defer src="renderer.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="label-input-group">
+      <label for="inputFile">Input File:</label>
+      <input type="text" id="inputFile" disabled>
+      <button id="browseInputButton">Browse...</button>
+    </div>
+    <div class="label-input-group">
+      <label for="outputFolder">Output Folder:</label>
+      <input type="text" id="outputFolder" disabled>
+      <button id="browseOutputButton">Browse...</button>
+    </div>
+    <div class="label-input-group">
+      <label for="videoName">Video Name:</label>
+      <input type="text" id="videoName">
+      <button id="keepNameButton">Keep Video Name</button>
+    </div>
+    <div class="options-group">
+      <div>
+        <label for="encoder">Codec:</label>
+        <select id="encoder">
+          <option value="x264">x264</option>
+          <option value="x265">x265</option>
+          <option value="ProRes">ProRes</option>
+          <option value="FFV1">FFV1</option>
+          <option value="AV1">AV1</option>
+        </select>
+      </div>
+      <div>
+        <label for="format">Format:</label>
+        <select id="format">
+          <option value="mp4">mp4</option>
+          <option value="mkv">mkv</option>
+          <option value="mov">mov</option>
+        </select>
+      </div>
+      <div>
+        <label for="resolution">Resolution:</label>
+        <select id="resolution">
+          <option value="Keep">Keep</option>
+          <option value="1280:720">720p</option>
+          <option value="1920:1080">1080p</option>
+          <option value="2560:1440">2k</option>
+          <option value="3840:2160">4k</option>
+          <option value="7680:4320">8k</option>
+        </select>
+      </div>
+    </div>
+    <button id="encodeButton">Encode</button>
+    <div id="loading-animation" class="loading-animation">
+      <img src="assets/render-load.gif" alt="Loading...">
+    </div>
+  </div>
+</body>
+</html>

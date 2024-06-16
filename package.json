@@ -1,0 +1,57 @@
+{
+  "name": "vidsencoder-2.0.0",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss": "sass --watch styles.scss:styles.css"
+  },
+  "keywords": [],
+  "author": "BOP",
+  "license": "ISC",
+  "description": "Video Encoder with ffmpeg",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.2",
+    "animate.css": "^4.1.1",
+    "discord-rpc": "^4.0.1",
+    "ffmpeg-static": "^5.2.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "electron": "^31.0.1",
+    "node-sass": "^9.0.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}
